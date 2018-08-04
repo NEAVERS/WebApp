@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>商品详情</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link href="../css/owl.carousel.css" rel="stylesheet">
+    <link href="../css/owl.theme.css" rel="stylesheet">
+    <style>
+        .tittle
+        {
+            height: 40px;
+            line-height: 40px;
+            background-color: #f2f2f2;
+            width: 100%;
+            position: fixed;
+            z-index: 99;
+            bottom:  0px;
+        }
+        .add_div
+        {
+            height: 40px;
+            line-height: 40px;
+            background-color: #f2f2f2;
+            width: 100%;
+            z-index: 99;
+            bottom:  0px;
+        }
+        .goodstittle
+        {
+            font-weight:700;
+        }
+        .price
+        {
+            color: red;
+        }
+        .btns button
+        {
+            background-color: #f2f2f2;
+            padding: 5px 10px;
+            width: 50px;
+        }
+        .info
+        {
+            width: 80%;
+        }
+        .return
+        {
+            position: absolute;
+            left: 10px;
+            top: 5px;
+        }
+        .content
+        {
+            margin-left: 20px;
+        }
+        .remark
+        {
+            margin-top: 20px;
+            width: 100%;
+        }
+        #owl-demo { width: 100%; margin-left: auto; margin-right: auto;}
+        #owl-demo .item{ display: block;}
+        #owl-demo img { display: block; width: 100%;}
+    </style>
+    <script src="../script/jquery-3.3.1.min.js"></script>
+    <script src="../script/api.js"></script>
+    <script src="../script/owl.carousel.js"></script>
+</head>
+<body>
+<div class="tittle" style="top: 0px;text-align: center;"><div class="return"><img src="../image/back.png" height="32" width="32"/></div>商品详情</div>
+<div style="height: 50px;width: 100%;"></div>
+<div id="owl-demo" class="owl-carousel">
+
+</div>
+<div class="content">
+    <div class="goodstittle"></div>
+    <div><span class="price"></span>/<span class="unit"></span></div>
+    <div class="spec"></div>
+    <div class="remark">
+        <textarea cols="4" placeholder="商品规格备注" style="width: 100%;height: 80px;"></textarea>
+    </div>
+</div>
+<div class="add_div" >
+
+    <div id="jiesuan" style="width: 100%;background-color: red;color: white;font-weight: 700;float: right;text-align: center;">添加到购物车</div>
+</div>
+<input type="hidden" id="goodsId">
+<script>
+    apiready=function () {
+        var goodsId = api.pageParam.GoodsId;
+        $("#goodsId").val(goodsId);
+        LoadProductDetail(goodsId)
+
+    }
+
+    function LoadProductDetail(goodsId)
+    {
+        api.ajax({
+            url: HostUrl+"/APP/GetGoodsDetail",
+            method: 'post',
+            data: {
+                values: {
+                    goodsId: goodsId,
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                if(ret.Stutas)
+                {
+                    IniInfo(ret.Result);
+                }
+                else
+                {
+                    api.alert({ msg: "用户名或密码错误，请重试！" });
+                }
+            } else {
+                api.alert({ msg: err });
+            }
+        });
+    }
+    function IniInfo(goodsInfo) {
+        var innerhtml = '';
+        var n = 1;
+        if(goodsInfo.pic1!="")
+            innerhtml +='<a class="item"><img src="' + HostUrl + goodsInfo.pic1 + '" alt="" style="width: 100%;height: 200px"></a>'
+        if(goodsInfo.pic2!="")
+            innerhtml +='<a class="item"><img src="' + HostUrl + goodsInfo.pic2 + '" alt="" style="width: 100%;height: 200px"></a>'
+        if(goodsInfo.pic3!="")
+            innerhtml +='<a class="item"><img src="' + HostUrl + goodsInfo.pic3 + '" alt="" style="width: 100%;height: 200px"></a>'
+        if(goodsInfo.pic4!="")
+            innerhtml +='<a class="item"><img src="' + HostUrl + goodsInfo.pic4 + '" alt="" style="width: 100%;height: 200px"></a>'
+        if(goodsInfo.pic5!="")
+            innerhtml +='<a class="item"><img src="' + HostUrl + goodsInfo.pic5 + '" alt="" style="width: 100%;height: 200px"></a>'
+
+
+        $("#owl-demo").html(innerhtml);
+        $("owl-demo").width(api.screenWidth)
+        $('#owl-demo').owlCarousel({
+            items: 1
+        });
+        $(".goodstittle").html(goodsInfo.GoodsTittle);
+        $(".price").html(goodsInfo.BasePrice);
+        $(".unit").html(goodsInfo.Unit);
+        $(".spec").html(goodsInfo.Spec);
+    }
+
+    function  addToShoppingCar() {
+        var goodsId = $("#goodsId").val();
+        api.ajax({
+            url: HostUrl+"/APP/AddToShoppingCar",
+            method: 'post',
+            data: {
+                values: {
+                    goodId: goodsId,
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                if(ret.Stutas)
+                {
+                    api.toast({ msg: "添加成功！" });
+                }
+                else
+                {
+                    api.alert({ msg: "用户名或密码错误，请重试！" });
+                }
+            } else {
+                api.alert({ msg: err });
+            }
+        });
+    }
+    $("#jiesuan").click(function () {
+        addToShoppingCar();
+    })
+    $(".return").click(function () {
+        api.closeFrame({
+            name: 'ProductDetail'
+        });
+    })
+</script>
+</body>
+
+
+</html>

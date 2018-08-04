@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>购物车</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .tittle
+        {
+            height: 40px;
+            line-height: 40px;
+            background-color: #f2f2f2;
+            width: 100%;
+            position: fixed;
+            z-index: 99;
+            bottom:  0px;
+        }
+        #goodList
+        {
+            width: 100%;
+        }
+        .goodsItem
+        {
+            width: 100%;
+            height: 100px;
+            border-bottom: 1px #f2f2f2 solid;
+            margin-top: 10px;
+        }
+        .goodsimg
+        {
+            float : left;
+            width: 30%;
+            height: 100px;
+            text-align: center;
+        }
+        .goodsInfo
+        {
+            float : left;
+            width: 70%;
+            height: 100px;
+            text-align: left;
+            line-height: 20px;
+        }
+
+        .goodstittle
+        {
+            font-weight:700;
+        }
+        .price
+        {
+            color: red;
+        }
+        .btns button
+        {
+            background-color: #f2f2f2;
+            padding: 5px 10px;
+            width: 50px;
+        }
+        .info
+        {
+            width: 80%;
+        }
+        .return
+        {
+            position: absolute;
+            left: 10px;
+            top: 5px;
+        }
+    </style>
+    <script src="../script/jquery-3.3.1.min.js"></script>
+    <script src="../script/api.js"></script>
+</head>
+<body>
+<div class="tittle" style="top: 0px;text-align: center;"><div class="return"><img src="../image/back.png" height="32" width="32"/></div>订单确认</div>
+<div class="content" style="margin-top: 50px;">
+    <div style="height: 72px;width: 90%;text-align: center;;background-color: #f1f8ff;margin:0 auto;border-radius: 5px;padding-top: 10px">
+        <div style="margin-left: 30px;text-align: left;font-size: 10px;line-height: 24px;" id="Info">--</div>
+        <div style="margin-left: 30px;text-align: left;font-size: 10px;line-height: 24px;" id="addr">--</div>
+    </div>
+    <div>
+        <div id="goodList">
+            <div class="goodsItem">
+                <div class="goodsimg">
+                    <a><img src=""  style="height: 80px" alt=""></a>
+                </div>
+                <div class="goodsInfo">
+                    <div class="goodstittle">棒棒糖</div>
+                    <div class="info"> 规格:10g*80支/板*6</div>
+                    <div class="info"> <span class="price" style="float: left">57.60元</span><span class="price" style="float: right">x10</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="height: 30px;line-height: 30px;margin-left: 20px;">备注：</div>
+    <div style="margin-left: 30px;height: 30px;line-height: 30px;width: 70%"><input type="text"  id="remark" style="height: 30px;line-height: 30px;width: 100%;" placeholder="请输入特殊运货要求"></div>
+    <div style="width: 100%;height: 48px; margin-top: 10px;">
+        <div style="height: 48px;width: 90%;text-align: center;;background-color: #f1f8ff;margin:0 auto;border-radius: 5px;">
+            <div style="margin-left: 10px;text-align: left;font-size: 10px;line-height: 24px;">享受<span style="color: red">0.00</span>类目折扣优惠</div>
+            <div style="margin-right: 10px;text-align: right;font-size: 10px;line-height: 24px;"><span style="color: red">类目折扣</span></div>
+        </div>
+    </div>
+    <div style="width: 100%;height: 48px; margin-top: 10px; display: none;" id="manjian" >
+        <div style="height: 48px;width: 90%;text-align: center;;background-color: #f1f8ff;margin:0 auto;border-radius: 5px;">
+            <div style="margin-left: 10px;text-align: left;font-size: 10px;line-height: 24px;">活动商品已满<span style="color: red"  id="LimitMoney">0.00元</span>，您已享受减<span style="color: red" id="LessMoeny">0.00元</span>类目折扣优惠</div>
+            <div style="margin-right: 10px;text-align: right;font-size: 10px;line-height: 24px;"><span style="color: red">满就减</span></div>
+        </div>
+    </div>
+    <div style="width: 100%;height: 50px;"></div>
+</div>
+<div class="tittle ">
+    <div style="width: 50%;text-align: left;padding-left: 20px;border-top: 1px solid #f2f2f2;float: left;">实付：<span style="color: red" id="totalPrice" >462.95元</span></div>
+    <div id="jiesuan" style="width: 40%;background-color: red;color: white;font-weight: 700;float: right;text-align: center;">结算</div>
+</div>
+<script>
+    setTimeout("ini() ",1000) ;
+    $("#jiesuan").click(function () {
+        var remark = $("#remark").val();
+        api.ajax({
+            url: HostUrl+"/APP/CreateOrder",
+            method: 'post',
+            data: {
+                values: {
+                    remark: remark,
+                    couponId:""
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                if(ret.Stutas)
+                {
+                    var js = 'location.reload();';
+                    api.execScript({
+                        frameName: "frame1",
+                        script: js
+                    });
+                    api.closeFrame({
+                        name: 'page2'
+                    });
+                }
+                else
+                {
+                    api.alert({ msg: "用户名或密码错误，请重试！" });
+                }
+            } else {
+                api.alert({ msg: err });
+            }
+        });
+    })
+    $(".return").click(function () {
+        api.closeFrame({
+            name: 'page2'
+        });
+    })
+    function ini() {
+
+        LoadReceiveInfo();
+        LoadData();
+    }
+
+    function LoadReceiveInfo() {
+        api.ajax({
+            url: HostUrl+"/APP/GetReceiveInfo",
+            method: 'post',
+        }, function(ret, err) {
+            if (ret) {
+                if(ret.Stutas)
+                {
+                    $("#Info").html(ret.Result.info);
+                    $("#addr").html(ret.Result.addr);
+                }
+                else
+                {
+                    api.alert({ msg: ret.Msg });
+                }
+            } else {
+                api.alert({ msg: err });
+            }
+        });
+    }
+
+    function LoadData() {
+        api.ajax({
+            url: HostUrl+"/APP/LoadShoopingCarCount",
+            method: 'post',
+        }, function(ret, err) {
+            if (ret) {
+                if(ret.Stutas)
+                {
+                    IniGoodsInfo("goodList",ret.Result)
+                }
+                else
+                {
+                    api.alert({ msg: ret.Msg });
+                }
+            } else {
+                api.alert({ msg: err });
+            }
+        });
+    }
+
+    function IniGoodsInfo(id,list) {
+        var html ="";
+        var totalPrice = 0;
+        $(list.list).each(function () {
+            totalPrice +=this.TotalPrice;
+            html +=' <div class="goodsItem">\n' +
+                '                <div class="goodsimg">\n' +
+                '                    <a><img src="'+HostUrl+this.Pic+'"  style="height: 80px" alt="暂无图片"></a>\n' +
+                '                </div>\n' +
+                '                <div class="goodsInfo">\n' +
+                '                    <div class="goodstittle">'+this.ProductTittle+'</div>\n' +
+                '                    <div class="info"> 规格:'+this.Spec+'</div>\n' +
+                '                    <div class="info"> <span class="price" style="float: left">'+this.Price+'元</span><span class="price" style="float: right">x'+this.Count+'</span></div>' +
+                '                </div>\n' +
+                '            </div>';
+        })
+        $("#"+id).html(html);
+
+        if(list.manjian)
+        {
+            totalPrice = totalPrice - list.manjian.LessMoeny;
+            $("#LessMoeny").html(list.manjian.LessMoeny+"元");
+            $("#LimitMoney").html(list.manjian.LimitMoney+"元")
+            $("#manjian").show();
+
+        }
+        else
+        {
+            $("#manjian").hide();
+        }
+        $("#totalPrice").html(totalPrice.toFixed(2)+"元");
+    }
+
+</script>
+</body>
+</html>
