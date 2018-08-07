@@ -604,4 +604,4 @@
 
 })(window);
 
-var HostUrl = "http://192.168.100.108:8080";
+var HostUrl = "http://47.92.122.194:8080/";

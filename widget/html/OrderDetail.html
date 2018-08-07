@@ -17,6 +17,7 @@
             position: fixed;
             z-index: 99;
             bottom:  0px;
+            top: 30px;
         }
         .return
         {
@@ -100,31 +101,22 @@
     <script src="../script/jquery.min.js"></script>
 </head>
 <body>
-    <div class="tittle" style="top: 0px;text-align: center;"><div class="return"><img src="../image/back.png" height="32" width="32"/></div>订单详情</div>
+    <div class="tittle" style="text-align: center;"><div class="return"><img src="../image/back.png" height="32" width="32"/></div>订单详情</div>
     <div class="orderInfo">
-        <div class="infoRow"><div class="leftLabel">订单编号：</div><div class="info" id="orderNum">124124124124</div></div>
-        <div class="infoRow"><div class="leftLabel">买&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;家：</div><div class="info" id="userName">124124124</div></div>
-        <div class="infoRow"><div class="leftLabel">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</div><div class="info" id="addr">124124124</div></div>
-        <div class="infoRow"><div class="leftLabel">时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;间：</div><div class="info" id="createTime">124124</div></div>
-        <div class="infoRow"><div class="leftLabel">订单状态：</div><div class="info" id="orderStutas">124124</div></div>
+        <div class="infoRow"><div class="leftLabel">订单编号：</div><div class="info" id="orderNum">-</div></div>
+        <div class="infoRow"><div class="leftLabel">买&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;家：</div><div class="info" id="userName">-</div></div>
+        <div class="infoRow"><div class="leftLabel">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</div><div class="info" id="addr">-</div></div>
+        <div class="infoRow"><div class="leftLabel">时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;间：</div><div class="info" id="createTime">-</div></div>
+        <div class="infoRow"><div class="leftLabel">订单状态：</div><div class="info" id="orderStutas">-</div></div>
     </div>
     <div id="goodList">
-        <div class="goodsItem">
-            <div class="goodsimg">
-                <a><img src=""  style="height: 80px" alt=""></a>
-            </div>
-            <div class="goodsInfo">
-                <div class="goodstittle">棒棒糖棒棒糖棒棒糖棒棒糖棒棒糖棒棒糖棒棒糖棒棒糖棒棒糖棒棒糖棒棒糖棒棒糖棒棒糖</div>
-                <div> 价格:57.60 x 10板</div>
-                <div class="price"> 总价:￥576.00</div>
-            </div>
-        </div>
+
     </div>
 
     <div class="orderInfoRow"><div class="leftTittle">支付方式</div><div class="RightValue" id="PayType">货到付款</div></div>
-    <div class="orderInfoRow"><div class="leftTittle">订单总金额</div><div class="RightValue" id="TotalPrice">￥588.90</div></div>
-    <div class="orderInfoRow"><div class="leftTittle">满就减活动</div><div class="RightValue" id="LessMoney" style="color: red;">-￥11.00</div></div>
-    <div class="orderInfoRow" style="color: red;"><div class="leftTittle">实付</div><div class="RightValue" id="PayMoney">￥577.90</div></div>
+    <div class="orderInfoRow"><div class="leftTittle">订单总金额</div><div class="RightValue" id="TotalPrice">-</div></div>
+    <div class="orderInfoRow"><div class="leftTittle">满就减活动</div><div class="RightValue" id="LessMoney" style="color: red;">-</div></div>
+    <div class="orderInfoRow" style="color: red;"><div class="leftTittle">实付</div><div class="RightValue" id="PayMoney">-</div></div>
 
 <script>
     apiready=function () {
