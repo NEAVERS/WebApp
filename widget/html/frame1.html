@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -159,6 +159,16 @@
         $(this).prev(".count").val(count);
         ChangeCout($(this).prev(".count"));
     })
+
+    $(document).on("change", ".count", function () {
+        var count = parseInt($(this).val());
+        if (count < 1) {
+            api.alert({ msg: "数量不能小于1" });
+            return;
+        }
+        ChangeCout($(this));
+    })
+
 
     $(document).on("click",".delBtn",function () {
         var itemId = $(this).parent().attr("goodsId");
