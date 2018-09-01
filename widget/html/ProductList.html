@@ -16,7 +16,8 @@
             width: 100%;
             position: fixed;
             z-index: 99;
-            top: 30px;
+            top: 0px;
+            
         }
         .tittle input
         {
@@ -106,7 +107,7 @@
             width: 100px;
             background-color: #f2f2f2;
             right: 0px;
-            top: 70px;
+            top: 40px;
             z-index: 100;
       }
         .typeItem
@@ -150,7 +151,8 @@
 
     var index = 1;
     apiready = function(){
-
+        var key = api.pageParam.key;
+        $("#keyword").val(key);
         LoadFstType();
         iniDataList();
         api.setRefreshHeaderInfo(function(ret, err){

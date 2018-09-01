@@ -87,9 +87,9 @@
 <body>
     <div class="tittle ">
         <span style="color: white;margin: 0 10px;" id="ProductList">分类</span>
-        <input type="text" style="background-color:white;height: 30px;width: 220px;" placeholder="请输入关键字查询">
-        <span style="color: white;margin: 0 10px;">搜索</span>
-        <span style="color: white;">公告</span>
+        <input type="text" style="background-color:white;height: 30px;width: 250px;" placeholder="请输入关键字查询" id="key">
+        <span style="color: white;margin: 0 10px;" id="btnSearch">搜索</span>
+        
     </div>
     <div class="content">
         <!-- Demo -->
@@ -241,10 +241,14 @@
              });
          }
 
-         $("#ProductList").click(function () {
-             OpenGoodList();
+        $("#ProductList").click(function () {
+             OpenGoodList("");
          })
-         function OpenGoodList() {
+        $("#btnSearch").click(function () {
+            var key = $("#key").val();
+             OpenGoodList(key);
+         })
+         function OpenGoodList(key) {
              api.openFrame({
                  name: 'ProductList',
                  url: 'ProductList.html',
@@ -255,7 +259,7 @@
                      h: 'auto'
                  },
                  pageParam: {
-                     GoodsId: 1
+                     key: key
                  }
              });
          }
