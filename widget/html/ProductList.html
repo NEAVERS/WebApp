@@ -271,9 +271,9 @@
             var tittle = this.GoodsTittle;
             if(tittle.length>10)
                 tittle = tittle.substring(0,10)+"...";
-            html+=' <div class="goodsItem" goodsId="'+this.Id+'">\n' +
-                '                <div class="goodsImg"><img src="'+HostUrl + this.pic1 +'" /></div>\n' +
-                '                <div class="goodstittle">'+tittle+'</div>\n' +
+            html+=' <div class="goodsItem" >\n' +
+                '                <div class="goodsImg"  onclick = "OpenGoodsDetail('+this.Id+')"><img src="'+HostUrl + this.pic1 +'" /></div>\n' +
+                '                <div class="goodstittle"  onclick = "OpenGoodsDetail('+this.Id+')" >'+tittle+'</div>\n' +
                 '                <div class="price">￥'+this.RetailtPrice +'/<span class="unit">'+this.Unit+'</span></div>\n' +
                 '                <div class="spec">规格:'+this.Spec+' </div>\n' +
                 '                <div class="addBtn" goodsId="'+this.Id+'"><button >购买</button></div>\n' +
@@ -310,16 +310,6 @@
         });
     }
 
-    $(document).on("click",".goodsImg",function () {
-        var goodsId = $(this).parent().attr("goodsId");
-
-        OpenGoodsDetail(goodsId)
-    })
-    $(document).on("click",".goodstittle",function () {
-        var goodsId = $(this).parent().attr("goodsId");
-
-        OpenGoodsDetail(goodsId)
-    })
 
 
     function OpenGoodsDetail(GoodsId) {

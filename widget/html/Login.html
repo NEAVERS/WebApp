@@ -70,6 +70,17 @@
 
     function getCookie(name){
 
+        var userName = api.getPrefs({
+            sync: true,
+            key: 'userName'
+        });
+        var password = api.getPrefs({
+            sync: true,
+            key: 'password'
+        });
+
+        $("#userName").val(userName);
+        $("#password").val(password);
         var strcookie = document.cookie;//获取cookie字符串
         var arrcookie = strcookie.split("; ");//分割
 //遍历匹配
@@ -121,7 +132,14 @@
             if (ret) {
                 if(ret.Stutas)
                 {
-
+                    api.setPrefs({
+                        key: 'userName',
+                        value: userName
+                    });
+                    api.setPrefs({
+                        key: 'password',
+                        value: password
+                    });
                     api.openWin({
                         name: 'page1',
                         url: '../index.html',

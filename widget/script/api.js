@@ -605,5 +605,5 @@
 })(window);
 
 
-var HostUrl = "http://47.92.122.194:8080/";
-//var HostUrl = "http://192.168.31.145:8080/";
+//var HostUrl = "http://47.92.122.194:8080/";
+var HostUrl = "http://192.168.31.145:8080/";

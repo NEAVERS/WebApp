@@ -178,12 +178,12 @@
         function IniGoodsInfo(id,list) {
             var html ="";
             $(list).each(function () {
-                html +='<div class="goodsItem" goodsId = "'+this.Id+'">\n' +
+                html +='<div class="goodsItem" >\n' +
                     '                    <div class="goodsimg">\n' +
-                    '                        <a><img src="' + HostUrl + this.pic1 + '"  style="height: 80px" alt="暂无图片"></a>\n' +
+                    '                        <a href="#"  onclick = "OpenGoodsDetail(\''+this.Id+'\')"><img src="' + HostUrl + this.pic1 + '"  style="height: 80px" alt="暂无图片"></a>\n' +
                     '                    </div>\n' +
                     '                    <div class="goodsInfo">\n' +
-                    '                        <div class="goodstittle">'+this.GoodsTittle+'</div>\n' +
+                    '                        <div class="goodstittle"  onclick = "OpenGoodsDetail(\''+this.Id+'\')">'+this.GoodsTittle+'</div>\n' +
                     '                        <div class="info">规格:'+this.Spec+'</div>\n' +
                     '                        <div class="info">￥'+this.RetailtPrice+'</div>\n' +
                     '                        <div class="addBtn" goodsId = "'+this.Id+'"><img src="../image/add.png" height="30" width="30"/></div>\n' +
@@ -218,11 +218,7 @@
             });
         }
 
-         $(document).on("click",".goodsItem",function () {
-             var goodsId = $(this).attr("goodsId");
 
-             OpenGoodsDetail(goodsId)
-         })
 
 
          function OpenGoodsDetail(GoodsId) {
