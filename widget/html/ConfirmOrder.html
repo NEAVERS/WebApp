@@ -138,11 +138,11 @@
             if (ret) {
                 if(ret.Stutas)
                 {
-                    var js = 'location.reload();';
-                    api.execScript({
-                        frameName: "frame1",
-                        script: js
-                    });
+
+                     api.sendEvent({
+                         name: 'confirOrder'
+                     });
+  
                     api.closeFrame({
                         name: 'page2'
                     });

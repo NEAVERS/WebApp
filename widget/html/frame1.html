@@ -126,6 +126,13 @@
 
     apiready =function() {
         LoadData();
+           api.addEventListener({
+            name: 'confirOrder'
+        }, function(ret, err) {
+            
+            api.alert({ msg: '订单提交成功' });
+            location.reload();
+        });
     }
 
     $(document).on("click",".JianCount",function () {
@@ -223,7 +230,9 @@
                 }
                 else
                 {
-                   api.alert({ msg:ret.Msg });
+                    api.alert({ msg:ret.Msg });
+                    input.val(ret.Result);
+
                 }
             } else {
                 api.alert({ msg: err });
