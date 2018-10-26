@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -237,8 +237,8 @@
             if(name.length>6)
                 name = name.substring(6)+"...";
             html+='  <div class="orderItem" orderId="'+this.OrderId+'">\n' +
-                '        <div class="orderNum">订单编号：'+this.OrderNum+'</div>\n' +
-                '        <div class="orderInfo">\n' +
+                '        <div class="orderNum" onclick="OpenOrderDetai(\"' + this.OrderId + '\")">订单编号：' + this.OrderNum + '</div>\n' +
+                '        <div class="orderInfo" onclick="OpenOrderDetai(\"' + this.OrderId + '\")">\n' +
                 '            <div class="goodsImg"><img src="'+HostUrl+this.OrderImg+'" alt="暂无图片"></div>\n' +
                 '            <div class="infos">\n' +
                 '                <div class="row"><div class="leftInfo"><span  style="font-weight: 700">'+name+'</span>等'+this.Count+'样商品</div><div class="rightInfo">￥'+this.TotalPrice+'</div></div>\n' +
@@ -256,14 +256,14 @@
         })
         $("#content").append(html);
     }
-    $(document).on("click",".orderNum",function () {
-        var orderId = $(this).parent().attr("orderId");
-        OpenOrderDetai(orderId)
-    })
-    $(document).on("click",".orderInfo",function () {
-        var orderId = $(this).parent().attr("orderId");
-        OpenOrderDetai(orderId)
-    })
+    //$(document).on("click",".orderNum",function () {
+    //    var orderId = $(this).parent().attr("orderId");
+    //    OpenOrderDetai(orderId)
+    //})
+    //$(document).on("click",".orderInfo",function () {
+    //    var orderId = $(this).parent().attr("orderId");
+    //    OpenOrderDetai(orderId)
+    //})
     function OpenOrderDetai(orderId) {
         api.openFrame({
             name: 'orderDetail',
