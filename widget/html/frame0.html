@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -134,7 +134,7 @@
                 }
                 }
         });
-        $(document).on("click",".addBtn",function () {
+        $(document).on("touchend",".addBtn",function () {
             var goodsId = $(this).attr("goodsId");
             addToShoppingCar(goodsId);
         })
