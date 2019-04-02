@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>底部导航</title>
+    <title>销宝贝</title>
     <link rel="stylesheet" type="text/css" href="./css/api.css"/>
     <link rel="stylesheet" type="text/css" href="./css/style.css"/>
     <style>
@@ -20,6 +20,9 @@
 <script type="text/javascript">
     apiready = function () {
 
+     var header = $api.byId('wrap');
+      //适配iOS 7+，Android 4.4+状态栏
+      $api.fixStatusBar(header);
                         api.openWin({
                         name: 'page1',
                         url: 'http://hf.yxbb2018.com:8080/App/WebLogin',
