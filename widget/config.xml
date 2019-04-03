@@ -14,8 +14,9 @@
 	<preference name="autoUpdate" value="true"/>
 	<preference name="smartUpdate" value="false"/>
 	<preference name="debug" value="false"/>
-	<preference name="statusBarAppearance" value="true"/>
+	<preference name="statusBarAppearance" value="false"/>
 	<permission name="location"/>
+	<preference name="fullScreen" value="false" />
 	<permission name="internet"/>
 	<access origin="*"/>
 </widget>
